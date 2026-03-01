@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Backtracking (DFS) solver for Kakurasu.
 
@@ -10,6 +9,7 @@ This implementation:
 """
 from __future__ import annotations
 from typing import List
+import time
 
 
 def solve_kakurasu_backtracking(
@@ -36,7 +36,7 @@ def solve_kakurasu_backtracking(
     col_sums = [0] * n
 
     nodes_visited = 0
-
+    start_time = time.time()
     def dfs(cell_index: int) -> bool:
         """
         Recursive DFS over grid cells.
@@ -89,16 +89,27 @@ def solve_kakurasu_backtracking(
         return False
 
     solved = dfs(0)
+    time_elapsed = time.time() - start_time
+    
+    if time_elapsed>60:
+        return {
+            "status": "timeout",
+            "solution": None,
+            "nodes_visited": nodes_visited,
+            "time_elapsed": time_elapsed,
+        }
 
     if solved:
         return {
             "status": "solved",
             "solution": grid,
             "nodes_visited": nodes_visited,
+            "time_elapsed": time_elapsed,
         }
 
     return {
         "status": "no_solution",
         "solution": None,
         "nodes_visited": nodes_visited,
+        "time_elapsed": time_elapsed,
     }
