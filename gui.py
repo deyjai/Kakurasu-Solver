@@ -7,6 +7,7 @@ Created on Fri Feb 27 18:49:52 2026
 
 import tkinter as tk
 from tkinter import filedialog, messagebox
+import solver
 
 
 class KakurasuGUI:
@@ -26,7 +27,7 @@ class KakurasuGUI:
         self.load_button = tk.Button(top, text="Load Puzzle", command=self.load_puzzle)
         self.load_button.grid(row=0, column=0, padx=5)
 
-        self.solve_button = tk.Button(top, text="Solve", state=tk.DISABLED)
+        self.solve_button = tk.Button(top, text="Solve (Backtracking)", state=tk.DISABLED, command=self.solve_puzzle)
         self.solve_button.grid(row=0, column=1, padx=5)
 
         self.status_label = tk.Label(top, text="No puzzle loaded")
@@ -115,6 +116,33 @@ class KakurasuGUI:
                 row_labels.append(lbl)
 
             self.grid_labels.append(row_labels)
+
+    def solve_puzzle(self):
+        """Call the backtracking solver and display results in the GUI."""
+        if self.N == 0:
+            return
+
+        # Run solver
+        result = solver.solve_kakurasu_backtracking(self.row_targets, self.col_targets)
+
+        status = result.get("status")
+        nodes = result.get("nodes_visited", 0)
+
+        if status == "solved":
+            sol = result.get("solution")
+            # Update grid display: shaded cells -> black, unshaded -> white
+            for i in range(self.N):
+                for j in range(self.N):
+                    if sol and sol[i][j] == 1:
+                        self.grid_labels[i][j].config(bg="black", text="")
+                    else:
+                        self.grid_labels[i][j].config(bg="white", text="")
+
+            self.status_label.config(text=f"Solved — nodes visited: {nodes}")
+            messagebox.showinfo("Solved", f"Solution found.\nNodes visited: {nodes}")
+        else:
+            self.status_label.config(text=f"No solution — nodes visited: {nodes}")
+            messagebox.showwarning("No solution", f"No solution found.\nNodes visited: {nodes}")
 
 if __name__ == "__main__":
     root = tk.Tk()
