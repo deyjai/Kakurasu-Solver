@@ -140,6 +140,9 @@ class KakurasuGUI:
 
             self.status_label.config(text=f"Solved — nodes visited: {nodes}")
             messagebox.showinfo("Solved", f"Solution found.\nNodes visited: {nodes}")
+        elif status == "timeout":
+            self.status_label.config(text=f"Timeout — nodes visited: {nodes}")
+            messagebox.showwarning("Timeout", f"Solver timed out after 60 seconds.\nNodes visited: {nodes}")
         else:
             self.status_label.config(text=f"No solution — nodes visited: {nodes}")
             messagebox.showwarning("No solution", f"No solution found.\nNodes visited: {nodes}")

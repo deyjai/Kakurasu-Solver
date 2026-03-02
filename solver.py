@@ -29,6 +29,9 @@ def solve_kakurasu_backtracking(
             - solution: 2D list of 0/1 values or None
             - nodes_visited: number of explored nodes
     """
+    if len(row_targets) != len(col_targets):
+        raise ValueError("Row and column target lists must be of the same length.")
+    
     n = len(row_targets)
 
     grid = [[0 for _ in range(n)] for _ in range(n)]
