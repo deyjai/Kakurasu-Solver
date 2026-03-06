@@ -136,6 +136,7 @@ class KakurasuGUI:
 
         status = result.get("status")
         nodes = result.get("nodes_visited", 0)
+        runtime = result.get("time_elapsed", 0)
 
         if status == "solved":
             sol = result.get("solution")
@@ -147,8 +148,13 @@ class KakurasuGUI:
                     else:
                         self.grid_labels[i][j].config(bg="white", text="")
 
-            self.status_label.config(text=f"Solved — nodes visited: {nodes}")
-            messagebox.showinfo("Solved", f"Solution found.\nNodes visited: {nodes}")
+            self.status_label.config(
+                text=f"Solved — nodes: {nodes} | time: {runtime:.4f}s"
+                )
+            messagebox.showinfo(
+                "Solved",
+                f"Solution found.\nNodes visited: {nodes}\nRuntime: {runtime:.4f} seconds"
+            )
         elif status == "timeout":
             self.status_label.config(text=f"Timeout — nodes visited: {nodes}")
             messagebox.showwarning("Timeout", f"Solver timed out after 60 seconds.\nNodes visited: {nodes}")
@@ -168,6 +174,7 @@ class KakurasuGUI:
     
         status = result.get("status")
         nodes = result.get("nodes_visited", 0)
+        runtime = result.get("time_elapsed", 0)
     
         if status == "solved":
             sol = result.get("solution")
@@ -179,8 +186,13 @@ class KakurasuGUI:
                     else:
                         self.grid_labels[i][j].config(bg="white", text="")
     
-            self.status_label.config(text=f"Solved (AC-3) — nodes visited: {nodes}")
-            messagebox.showinfo("Solved", f"AC-3 Solution found.\nNodes visited: {nodes}")
+            self.status_label.config(
+                text=f"Solved — nodes: {nodes} | time: {runtime:.4f}s"
+                )
+            messagebox.showinfo(
+                "Solved",
+                f"Solution found.\nNodes visited: {nodes}\nRuntime: {runtime:.4f} seconds"
+            )
     
         elif status == "timeout":
             self.status_label.config(text=f"Timeout (AC-3) — nodes visited: {nodes}")
