@@ -1,11 +1,12 @@
 """
-Backtracking (DFS) solver for Kakurasu.
+Backtracking (DFS) solver for Kakurasu with proper timeout.
 
 This implementation:
 - Uses depth-first search
 - Applies early pruning
 - Counts visited nodes
-- Returns structured result dictionary
+- Tracks runtime
+- Supports timeout handling
 """
 from __future__ import annotations
 from typing import List
@@ -17,7 +18,7 @@ def solve_kakurasu_backtracking(
     col_targets: List[int],
 ) -> dict:
     """
-    Solve Kakurasu using DFS backtracking.
+    Solve Kakurasu using DFS backtracking with timeout.
 
     Args:
         row_targets: Target sums for each row.
@@ -25,9 +26,10 @@ def solve_kakurasu_backtracking(
 
     Returns:
         Dictionary with:
-            - status: "solved" | "no_solution"
+            - status: "solved" | "no_solution" | "timeout"
             - solution: 2D list of 0/1 values or None
             - nodes_visited: number of explored nodes
+            - time_elapsed: runtime in seconds
     """
     if len(row_targets) != len(col_targets):
         raise ValueError("Row and column target lists must be of the same length.")
@@ -40,32 +42,35 @@ def solve_kakurasu_backtracking(
 
     nodes_visited = 0
     start_time = time.time()
-    def dfs(cell_index: int) -> bool:
-        """
-        Recursive DFS over grid cells.
+    TIMEOUT = 60  # seconds
 
-        Args:
-            cell_index: flattened index from 0 to n*n - 1
+    def dfs(cell_index: int) -> str | bool:
+        """
+        Recursive DFS over grid cells with timeout.
 
         Returns:
-            True if solution found, False otherwise.
+            True if solution found
+            "timeout" if timeout reached
+            False if no solution in this branch
         """
         nonlocal nodes_visited
         nodes_visited += 1
 
+        # Check timeout
+        if time.time() - start_time > TIMEOUT:
+            return "timeout"
+
         # All cells assigned
         if cell_index == n * n:
-            return (
-                row_sums == row_targets and
-                col_sums == col_targets
-            )
+            return row_sums == row_targets and col_sums == col_targets
 
         row = cell_index // n
         col = cell_index % n
 
         # Try value 0 (unshaded)
-        if dfs(cell_index + 1):
-            return True
+        result = dfs(cell_index + 1)
+        if result == "timeout" or result is True:
+            return result
 
         # Try value 1 (shaded)
         row_value = col + 1
@@ -77,12 +82,10 @@ def solve_kakurasu_backtracking(
         col_sums[col] += col_value
 
         # Prune if sums exceed targets
-        if (
-            row_sums[row] <= row_targets[row]
-            and col_sums[col] <= col_targets[col]
-        ):
-            if dfs(cell_index + 1):
-                return True
+        if row_sums[row] <= row_targets[row] and col_sums[col] <= col_targets[col]:
+            result = dfs(cell_index + 1)
+            if result == "timeout" or result is True:
+                return result
 
         # Backtrack
         grid[row][col] = 0
@@ -93,8 +96,8 @@ def solve_kakurasu_backtracking(
 
     solved = dfs(0)
     time_elapsed = time.time() - start_time
-    
-    if time_elapsed>60:
+
+    if solved == "timeout":
         return {
             "status": "timeout",
             "solution": None,
