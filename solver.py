@@ -1,5 +1,5 @@
 """
-Backtracking (DFS) solver for Kakurasu with proper timeout.
+Backtracking (DFS) solver for Kakurasu.
 
 This implementation:
 - Uses depth-first search
@@ -18,7 +18,7 @@ def solve_kakurasu_backtracking(
     col_targets: List[int],
 ) -> dict:
     """
-    Solve Kakurasu using DFS backtracking with timeout.
+    Solve Kakurasu using DFS backtracking.
 
     Args:
         row_targets: Target sums for each row.
