@@ -156,8 +156,13 @@ class KakurasuGUI:
                 f"Solution found.\nNodes visited: {nodes}\nRuntime: {runtime:.4f} seconds"
             )
         elif status == "timeout":
-            self.status_label.config(text=f"Timeout — nodes visited: {nodes}")
-            messagebox.showwarning("Timeout", f"Solver timed out after 60 seconds.\nNodes visited: {nodes}")
+            self.status_label.config(
+                text=f"Timeout — nodes: {nodes} | time: {runtime:.4f}s"
+            )
+            messagebox.showwarning(
+                "Timeout",
+                f"Solver timed out.\nNodes visited: {nodes}\nRuntime: {runtime:.4f} seconds"
+            )
         else:
             self.status_label.config(text=f"No solution — nodes visited: {nodes}")
             messagebox.showwarning("No solution", f"No solution found.\nNodes visited: {nodes}")
@@ -195,8 +200,13 @@ class KakurasuGUI:
             )
     
         elif status == "timeout":
-            self.status_label.config(text=f"Timeout (AC-3) — nodes visited: {nodes}")
-            messagebox.showwarning("Timeout", f"AC-3 solver timed out.\nNodes visited: {nodes}")
+            self.status_label.config(
+                text=f"Timeout (AC-3) — nodes: {nodes} | time: {runtime:.4f}s"
+            )
+            messagebox.showwarning(
+                "Timeout",
+                f"AC-3 solver timed out.\nNodes visited: {nodes}\nRuntime: {runtime:.4f} seconds"
+            )
     
         else:
             self.status_label.config(text=f"No solution (AC-3) — nodes visited: {nodes}")

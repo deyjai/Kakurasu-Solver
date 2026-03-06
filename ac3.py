@@ -192,19 +192,29 @@ def revise(domains, Xi, Xj, row_targets, col_targets, n):
 
 def locally_feasible(Xi, vi, Xj, vj, domains, row_targets, col_targets, n):
 
-    temp = copy.deepcopy(domains)
-    temp[Xi] = {vi}
-    temp[Xj] = {vj}
+    # Save original domains
+    old_Xi = domains[Xi]
+    old_Xj = domains[Xj]
 
-    return (
-        check_row_feasible(Xi[0], temp, row_targets, n)
+    # Temporarily assign values
+    domains[Xi] = {vi}
+    domains[Xj] = {vj}
+
+    feasible = (
+        check_row_feasible(Xi[0], domains, row_targets, n)
         and
-        check_col_feasible(Xi[1], temp, col_targets, n)
+        check_col_feasible(Xi[1], domains, col_targets, n)
         and
-        check_row_feasible(Xj[0], temp, row_targets, n)
+        check_row_feasible(Xj[0], domains, row_targets, n)
         and
-        check_col_feasible(Xj[1], temp, col_targets, n)
+        check_col_feasible(Xj[1], domains, col_targets, n)
     )
+
+    # Restore domains
+    domains[Xi] = old_Xi
+    domains[Xj] = old_Xj
+
+    return feasible
 
 
 def check_row_feasible(row, domains, row_targets, n):
