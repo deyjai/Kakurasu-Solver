@@ -1,0 +1,21 @@
+Puzzle ID,Grid Size,Solver,Status,Runtime (s),Nodes Visited
+kakurasu_easy_5x5,5x5,Backtracking,solved,3.6541,7254762
+kakurasu_easy_5x5,5x5,AC-3,solved,0.0033,1
+kakurasu_easy_7x7,7x7,Backtracking,timeout,60.0000,108754055
+kakurasu_easy_7x7,7x7,AC-3,no_solution,28.4739,2681
+kakurasu_easy_9x9,9x9,Backtracking,timeout,60.0000,111544463
+kakurasu_easy_9x9,9x9,AC-3,timeout,60.0363,2173
+kakurasu_hard_5x5,5x5,Backtracking,solved,3.8417,7254762
+kakurasu_hard_5x5,5x5,AC-3,solved,0.0033,1
+kakurasu_hard_7x7,7x7,Backtracking,timeout,60.0000,110718334
+kakurasu_hard_7x7,7x7,AC-3,no_solution,28.5144,2502
+kakurasu_hard_9x9,9x9,Backtracking,timeout,60.0000,115450042
+kakurasu_hard_9x9,9x9,AC-3,timeout,60.0475,2166
+kakurasu_medium_5x5,5x5,Backtracking,no_solution,0.0382,70712
+kakurasu_medium_5x5,5x5,AC-3,no_solution,0.0000,0
+kakurasu_medium_7x7,7x7,Backtracking,timeout,60.0000,111392980
+kakurasu_medium_7x7,7x7,AC-3,no_solution,12.6098,1106
+kakurasu_medium_9x9,9x9,Backtracking,timeout,60.0000,118281155
+kakurasu_medium_9x9,9x9,AC-3,timeout,60.0048,2070
+kakurasu_unsolvable_5x5,5x5,Backtracking,no_solution,0.0004,703
+kakurasu_unsolvable_5x5,5x5,AC-3,no_solution,0.0000,0
