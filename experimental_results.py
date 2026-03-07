@@ -1,7 +1,7 @@
 import os
 import csv
-from solver import solve_kakurasu_backtracking
-from ac3 import solve_with_ac3
+from backtracking_solver import solve_kakurasu_backtracking
+from ac3_solver import solve_with_ac3
 
 # Folder with puzzle files
 PUZZLE_DIR = "puzzles"  # put your .txt puzzles here

@@ -7,8 +7,8 @@ Created on Fri Feb 27 18:49:52 2026
 
 import tkinter as tk
 from tkinter import filedialog, messagebox
-import solver
-import ac3
+import backtracking_solver
+import ac3_solver
 
 class KakurasuGUI:
     def __init__(self, root):
@@ -132,7 +132,7 @@ class KakurasuGUI:
             return
 
         # Run solver
-        result = solver.solve_kakurasu_backtracking(self.row_targets, self.col_targets)
+        result = backtracking_solver.solve_kakurasu_backtracking(self.row_targets, self.col_targets)
 
         status = result.get("status")
         nodes = result.get("nodes_visited", 0)
@@ -172,7 +172,7 @@ class KakurasuGUI:
         if self.N == 0:
             return
     
-        result = ac3.solve_with_ac3(
+        result = ac3_solver.solve_with_ac3(
             self.row_targets,
             self.col_targets
         )

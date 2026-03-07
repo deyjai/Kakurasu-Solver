@@ -1,6 +1,9 @@
 import os
-from solver  import solve_kakurasu_backtracking
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from backtracking_solver  import solve_kakurasu_backtracking
 from timeout_util import run_with_timeout
+
 def test_backtracking_solver_no_solution():
 
     # Test case 1: Simple 5x5 puzzle with no solution

@@ -1,5 +1,7 @@
 import os
-from ac3 import solve_with_ac3
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from ac3_solver import solve_with_ac3
 from timeout_util import run_with_timeout
 
 
